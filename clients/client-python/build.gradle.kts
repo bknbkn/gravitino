@@ -100,20 +100,20 @@ tasks {
   val black by registering(VenvTask::class) {
     dependsOn(pipInstall)
     venvExec = "black"
-    args = listOf("./gravitino", "./tests", "./scripts")
+    args = listOf("./gravitino", "./gravitino_tests", "./scripts")
   }
 
   val pylint by registering(VenvTask::class) {
     dependsOn(pipInstall)
     mustRunAfter(black)
     venvExec = "pylint"
-    args = listOf("./gravitino", "./tests", "./scripts")
+    args = listOf("./gravitino", "./gravitino_tests", "./scripts")
   }
 
   val integrationCoverageReport by registering(VenvTask::class){
     venvExec = "coverage"
     args = listOf("html")
-    workingDir = projectDir.resolve("./tests/integration")
+    workingDir = projectDir.resolve("./gravitino_tests/integration")
   }
 
   val integrationTest by registering(VenvTask::class) {
@@ -123,7 +123,7 @@ tasks {
 
     venvExec = "coverage"
     args = listOf("run", "--branch", "-m", "unittest")
-    workingDir = projectDir.resolve("./tests/integration")
+    workingDir = projectDir.resolve("./gravitino_tests/integration")
     environment = mapOf(
       "PROJECT_VERSION" to project.version,
       "GRAVITINO_HOME" to project.rootDir.path + "/distribution/package",
@@ -140,13 +140,13 @@ tasks {
   val unitCoverageReport by registering(VenvTask::class){
     venvExec = "coverage"
     args = listOf("html")
-    workingDir = projectDir.resolve("./tests/unittests")
+    workingDir = projectDir.resolve("./gravitino_tests/unittests")
   }
 
   val unitTests by registering(VenvTask::class) {
     venvExec = "coverage"
     args = listOf("run", "--branch", "-m", "unittest")
-    workingDir = projectDir.resolve("./tests/unittests")
+    workingDir = projectDir.resolve("./gravitino_tests/unittests")
 
     finalizedBy(unitCoverageReport)
   }

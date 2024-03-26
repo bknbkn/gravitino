@@ -14,7 +14,7 @@ from gravitino import (
 )
 from gravitino.dto.dto_converters import DTOConverters
 from gravitino.dto.requests.metalake_updates_request import MetalakeUpdatesRequest
-from tests.integration.integration_test_env import IntegrationTestEnv
+from gravitino_tests.integration.integration_test_env import IntegrationTestEnv
 
 logger = logging.getLogger(__name__)
 
